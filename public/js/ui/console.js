@@ -340,9 +340,12 @@ export async function render(main, app) {
     const c = hudCtx, W = el.hud.width, H = el.hud.height;
     c.clearRect(0, 0, W, H);
     const ir = world.thermal;
-    const ink = ir ? 'rgba(255,255,255,0.9)' : 'rgba(150,255,190,0.9)';
+    const ink = ir ? 'rgba(255,255,255,0.92)' : 'rgba(150,255,190,0.95)';
     c.strokeStyle = ink; c.fillStyle = ink; c.lineWidth = 1;
     c.font = '11px ui-monospace, monospace';
+    // Dark halo behind HUD symbology keeps it legible against a bright day sky.
+    c.shadowColor = 'rgba(0,0,0,0.85)';
+    c.shadowBlur = 3;
     // Reticle.
     const cx = W / 2, cy = H / 2;
     c.beginPath();
@@ -406,8 +409,9 @@ export async function render(main, app) {
         c.textAlign = 'left';
       }
     }
+    c.shadowBlur = 0;
     // Sensor noise grain (IR, fog, EW).
-    const grain = (ir ? 0.22 : 0.08) + 0.12 * (spec.env.ew || 0) + (spec.env.weather !== 'clear' ? 0.06 : 0);
+    const grain = (ir ? 0.16 : 0.04) + 0.07 * (spec.env.ew || 0) + (spec.env.weather !== 'clear' ? 0.05 : 0);
     el.noise.style.opacity = String(Math.min(0.55, grain));
     el.noise.style.backgroundPosition = `${Math.floor(Math.random() * 128)}px ${Math.floor(Math.random() * 128)}px`;
   }

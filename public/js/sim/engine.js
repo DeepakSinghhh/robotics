@@ -818,7 +818,10 @@ export class Simulation {
 
   atrFor(e, eo) {
     const r = new Rng(this.seed).fork(`atr:${e.id}:${eo ? 1 : 0}`);
-    if (e.phantom) return { cls: r.chance(0.75) ? 'BIRD' : 'QUAD', conf: Math.round(r.range(0.5, 0.75) * 100) / 100, correct: true };
+    if (e.phantom) {
+      const cls = r.chance(0.75) ? 'BIRD' : 'QUAD';
+      return { cls, conf: Math.round(r.range(0.5, 0.75) * 100) / 100, correct: cls === 'BIRD' };
+    }
     return atrSuggest(r, e, {
       accuracy: this.spec.aiAid?.accuracy ?? 0.85,
       night: this.spec.env.time === 'night',

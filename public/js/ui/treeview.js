@@ -34,7 +34,7 @@ function edgesOf(path, leafId) {
 }
 
 export function treeView({ truthPath = [], truthLeaf = null, perceivedPath = [], perceivedLeaf = null, compact = false }) {
-  const colW = 250, rowH = compact ? 38 : 44, boxW = 212, boxH = 30, padX = 10, padY = 10;
+  const colW = 250, rowH = compact ? 44 : 50, boxW = 212, boxH = 28, padX = 10, padY = 10;
   const W = padX * 2 + colW * 2 + boxW, H = padY * 2 + rowH * 11 + boxH;
   const at = (id) => {
     const [c, r] = POS[id];
@@ -58,8 +58,9 @@ export function treeView({ truthPath = [], truthLeaf = null, perceivedPath = [],
       svg.append(s('path', { d, fill: 'none', stroke: 'var(--line-2)', 'stroke-width': 1 }));
       if (tEdges.has(key)) svg.append(s('path', { d, fill: 'none', stroke: TRUTH, 'stroke-width': 3, opacity: 0.9 }));
       if (pEdges.has(key)) svg.append(s('path', { d, fill: 'none', stroke: YOURS, 'stroke-width': 2, 'stroke-dasharray': '6 4' }));
-      const mx = POS[to][0] === POS[id][0] ? a.x + 26 : x1 + 6;
-      const my = POS[to][0] === POS[id][0] ? a.y + boxH + 10 : y1 - 4;
+      const vertical = POS[to][0] === POS[id][0];
+      const mx = vertical ? a.x + 26 : x1 + 6;
+      const my = vertical ? a.y + boxH + (rowH - boxH) / 2 + 3 : y1 - 4;
       svg.append(s('text', { x: mx, y: my, 'font-size': 9.5, fill: 'var(--text-muted)' }, label));
     }
   }

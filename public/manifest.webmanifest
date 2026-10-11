@@ -1,0 +1,10 @@
+{
+  "name": "DRONA C-UAS Threat Simulation Trainer",
+  "short_name": "DRONA",
+  "description": "AI-enabled drone and counter-drone threat simulation trainer",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1110",
+  "theme_color": "#0b1110",
+  "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

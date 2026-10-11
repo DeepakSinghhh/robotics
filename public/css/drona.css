@@ -191,6 +191,7 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
 .pane { background: #0d1413; border: 1px solid #1e2a27; border-radius: 6px; position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 0; }
 .pane-title { display: flex; align-items: center; gap: 8px; height: 24px; padding: 0 8px; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid #1a2523; flex: none; }
 .pane-title .spacer { flex: 1; }
+.pane-title span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .pane-body { flex: 1; min-height: 0; position: relative; }
 .pane canvas { display: block; width: 100%; height: 100%; }
 .c-top { grid-area: top; display: flex; align-items: center; gap: 14px; padding: 0 10px; background: #0d1413; border: 1px solid #1e2a27; border-radius: 6px; overflow: hidden; white-space: nowrap; }

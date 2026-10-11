@@ -444,7 +444,7 @@ export async function render(main, app) {
   function renderTable() {
     const rows = sim.trackList().map((tr) => {
       const ident = tr.op.ident || 'UNKNOWN';
-      const tti = tr.view.tti;
+      const tti = ['FRIEND', 'NON_UAS'].includes(ident) ? Infinity : tr.view.tti;
       const cls = tr.closed ? 'closed' : tr.status === 'lost' ? 'lost' : '';
       return h('tr', {
         class: `${cls}${tr.id === state.selected ? ' sel' : ''}${tr.op.ackAt === null && !tr.closed ? ' unread' : ''}`,
@@ -623,7 +623,7 @@ export async function render(main, app) {
       kin('ALT', v.alt != null ? `${Math.round(v.alt)} m` : '—'),
       kin('SPEED', v.speed != null ? `${Math.round(v.speed)} m/s` : '—'),
       kin('HEADING', v.heading != null && v.speed > 1 ? `${fmtBearing(v.heading)}°` : '—'),
-      kin('TTI', isFinite(v.tti) ? `${Math.round(v.tti)} s` : '—', v.tti < 30),
+      kin('TTI', isFinite(v.tti) && !['FRIEND', 'NON_UAS'].includes(tr.op.ident) ? `${Math.round(v.tti)} s` : '—', v.tti < 30 && !['FRIEND', 'NON_UAS'].includes(tr.op.ident)),
     );
   }
 
@@ -765,12 +765,13 @@ export async function render(main, app) {
   let acc = 0;
   let uiTick = 0, vrTick = 0;
   world.renderer.setAnimationLoop((now) => {
-    const dt = Math.min(0.1, (now - last) / 1000);
+    // Allow large frame gaps so the sim keeps real time on low-end laptops (sub-10 fps).
+    const dt = Math.min(0.3, (now - last) / 1000);
     last = now;
     if (state.running && !state.paused) {
       acc += dt * state.speed;
       let n = 0;
-      while (acc >= SIM_DT && n < 60) {
+      while (acc >= SIM_DT && n < 120) {
         sim.step();
         bot?.update();
         acc -= SIM_DT;
@@ -805,6 +806,15 @@ export async function render(main, app) {
     if (sim.finished && !state.ended) finish();
   });
 
+  // Instructor / debugging hook: skip ahead (the exemplar keeps acting while skipping).
+  app.debug = {
+    sim,
+    skip(seconds) {
+      const n = Math.round(seconds / SIM_DT);
+      for (let i = 0; i < n && !sim.finished; i++) { sim.step(); bot?.update(); }
+    },
+  };
+
   const beforeUnload = (e) => { if (state.running && !state.ended) { e.preventDefault(); e.returnValue = ''; } };
   window.addEventListener('beforeunload', beforeUnload);
 
@@ -822,6 +832,7 @@ export async function render(main, app) {
     world.dispose();
     closeAllModals();
     app.pending = null;
+    app.debug = null;
   };
 }
 

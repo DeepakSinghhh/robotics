@@ -19,6 +19,16 @@ WebGL browser works (Chrome, Edge, Firefox). A WebXR headset is optional.
 
 ---
 
+| Operator console: swarm assault, dust, EW | Night thermal: loitering munitions and decoys |
+| --- | --- |
+| ![Console during a swarm assault](docs/screenshots/console-swarm.jpg) | ![Night IR console](docs/screenshots/console-night-ir.jpg) |
+| **AAR: decision-path tree (your path vs doctrine)** | **Unit dashboard: readiness and skill heat-map** |
+| ![Decision tree](docs/screenshots/aar-decision-tree.jpg) | ![Unit dashboard](docs/screenshots/unit-dashboard.jpg) |
+| **Trainee progress: mastery, trends, confusion matrix** | **Threat library and scenario builder** |
+| ![Trainee progress](docs/screenshots/trainee-progress.jpg) | ![Threat library](docs/screenshots/threat-library.jpg) |
+
+A 5-minute demo script for judges is in [docs/DEMO.md](docs/DEMO.md).
+
 ## How it meets the problem statement
 
 | Expected outcome | DRONA |

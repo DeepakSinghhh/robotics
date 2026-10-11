@@ -88,6 +88,7 @@ main { min-height: calc(100vh - 52px); outline: none; }
 /* ---------------------------------------------------------------- primitives */
 .card { background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
 .card + .card { margin-top: 14px; }
+.grid > .card + .card { margin-top: 0; }
 .card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
 .card-head h3, .card-head h4 { margin: 0; }
 .grid { display: grid; gap: 14px; }
@@ -377,6 +378,14 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
 .wave-table td { padding: 3px 4px; }
 .builder { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 14px; }
 @media (max-width: 1000px) { .builder { grid-template-columns: 1fr; } }
+
+/* Narrow screens: stack the dashboard columns (the console itself is desktop / VR only). */
+@media (max-width: 900px) {
+  .page .grid[style] { grid-template-columns: 1fr !important; }
+  .appbar { gap: 8px; }
+  .page { padding: 16px; }
+  .hero .figure { font-size: 44px; }
+}
 
 @media print {
   body { background: #fff; color: #000; }

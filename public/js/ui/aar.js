@@ -53,7 +53,7 @@ export async function render(main, app, id) {
     h('div', { class: 'row no-print' },
       h('button', { class: 'btn', type: 'button', onclick: () => window.print() }, 'Print report'),
       h('button', { class: 'btn', type: 'button', onclick: () => download(`drona-aar-${session.id}.json`, JSON.stringify(session, null, 1)) }, 'Export JSON'),
-      spec.waves ? h('button', { class: 'btn primary', type: 'button', onclick: () => { app.startRun({ ...spec }, session.mode === 'exemplar' ? 'exemplar' : session.mode, {}); } }, 'Re-fly same scenario') : null,
+      spec.waves ? h('button', { class: 'btn primary', type: 'button', onclick: () => { app.startRun({ ...spec }, session.mode === 'exemplar' ? 'mission' : session.mode, {}); } }, 'Re-fly same scenario') : null,
       spec.waves ? h('button', { class: 'btn', type: 'button', onclick: () => app.startRun({ ...spec }, 'exemplar', {}) }, 'Watch exemplar fly it') : null),
   );
 

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DRONA C-UAS Trainer</title>
+  <meta name="description" content="DRONA: AI-enabled drone and counter-drone threat simulation trainer">
+  <meta name="theme-color" content="#0b1110">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/drona.css">
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three/three.module.min.js" } }
+  </script>
+</head>
+<body>
+  <header class="appbar" id="appbar">
+    <a class="brand" href="#/">
+      <img src="assets/icon.svg" alt="" width="28" height="28">
+      <span class="brand-name">DRONA</span>
+      <span class="brand-sub">C-UAS Threat Simulation Trainer</span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="#/" data-nav="home">Home</a>
+      <a href="#/sortie" data-nav="sortie">Sortie</a>
+      <a href="#/missions" data-nav="missions">Missions</a>
+      <a href="#/drill" data-nav="drill">Drill</a>
+      <a href="#/library" data-nav="library">Threat Library</a>
+      <a href="#/progress" data-nav="progress">My AAR</a>
+      <a href="#/unit" data-nav="unit">Unit</a>
+      <a href="#/builder" data-nav="builder">Builder</a>
+    </nav>
+    <div class="appbar-right">
+      <span class="conn" id="conn" title="Storage mode">…</span>
+      <button class="trainee-chip" id="trainee-chip" type="button">Select trainee</button>
+    </div>
+  </header>
+  <main id="app" tabindex="-1"></main>
+  <div id="modal-root"></div>
+  <div id="toast-root" aria-live="polite"></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

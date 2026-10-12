@@ -156,6 +156,14 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const host = process.env.HOST || '0.0.0.0';
   const dataDir = process.env.DRONA_DATA ? path.resolve(process.env.DRONA_DATA) : path.join(ROOT, 'data');
   const server = createServer({ dataDir });
+  // Free cloud hosts often wipe the disk on restart. DRONA_SEED_DEMO=1 reloads the
+  // demo unit whenever the datastore starts empty.
+  if (process.env.DRONA_SEED_DEMO === '1' && server.store.listUnits().length === 0) {
+    const { seedDemo, fileStoreAdapter } = await import('../public/js/ai/demo.js');
+    const res = await seedDemo(fileStoreAdapter(server.store), { perTrainee: Number(process.env.DRONA_SEED_SESSIONS) || 6 });
+    await server.store.save();
+    console.log(`  Seeded demo unit: ${res.sessions} sessions`);
+  }
   server.listen(port, host, () => {
     console.log(`\n  DRONA v${VERSION} — C-UAS Threat Simulation Trainer`);
     console.log(`  Local:   http://localhost:${port}`);

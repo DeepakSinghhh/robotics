@@ -1,0 +1,17 @@
+# Optional free deployment of the full DRONA server (shared unit data across
+# browsers) on Render: New → Blueprint → select this repository.
+# The free plan sleeps when idle and wipes the disk on restart, so the demo unit
+# is reseeded automatically (DRONA_SEED_DEMO=1).
+services:
+  - type: web
+    name: drona
+    runtime: node
+    plan: free
+    buildCommand: echo "No build step needed"
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DRONA_SEED_DEMO
+        value: "1"

@@ -1,6 +1,6 @@
 # DRONA: 5-minute demo script (SIH judging)
 
-**Setup (once):** `npm run seed-demo` with the server stopped, then `npm start`, then open `http://localhost:8080`.
+**Setup (once):** on the hosted site click **Load demo unit** on the home page. On a laptop, run `npm run seed-demo` with the server stopped, then `npm start`, then open `http://localhost:8080`.
 Select **Hav Arjun Mehta** from the trainee chip (top right).
 
 | Time | Show | Say |
@@ -18,7 +18,7 @@ Select **Hav Arjun Mehta** from the trainee chip (top right).
 
 **Backup talking points**
 
-* Tested: 36 automated tests, including determinism, root-cause attribution, the adaptive director, fratricide and ROE
+* Tested: 37 automated tests, including determinism, root-cause attribution, the adaptive director, fratricide and ROE
   handling, and the REST API.
 * Scales to a unit: one laptop runs the server and trainees join over the LAN. It also runs fully offline on a single device.
 * The AI is explainable and offline (BKT, rule-based coach, simulated ATR), which suits a defence network. The roadmap

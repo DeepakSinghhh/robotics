@@ -42,7 +42,10 @@ export async function render(main, app) {
     traineeCard = h('div', { class: 'card' },
       h('h3', {}, 'Welcome to DRONA'),
       h('p', { class: 'secondary' }, 'Select or create a trainee. Each sortie is scored and recorded, and the AI Director adapts the next one to your weak areas.'),
-      h('button', { class: 'btn primary', type: 'button', onclick: () => app.pickTrainee().then(() => app.go('/')) }, 'Select trainee'),
+      h('div', { class: 'row' },
+        h('button', { class: 'btn primary', type: 'button', onclick: () => app.pickTrainee().then(() => app.go('/')) }, 'Select trainee'),
+        h('button', { class: 'btn', type: 'button', onclick: () => app.loadDemo() }, 'Load demo unit')),
+      h('p', { class: 'muted', style: { fontSize: '12px', marginTop: '10px' } }, 'The demo unit fills the AAR and unit dashboards with simulated trainees, which is useful for evaluation.'),
     );
   }
 

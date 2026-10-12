@@ -11,7 +11,7 @@ every session goes into an **after-action review (AAR)** that tracks individuals
 ```
 npm start                 # → http://localhost:8080 (share the LAN URL with trainees)
 npm run seed-demo         # optional: load a demo detachment with 64 recorded sorties
-npm test                  # 36 automated tests (engine, doctrine, scoring, AI, server)
+npm test                  # 37 automated tests (engine, doctrine, scoring, AI, server, demo seeding)
 ```
 
 Requirements: Node.js ≥ 18 and nothing else. There are zero npm dependencies; Three.js is vendored for offline use. Any
@@ -28,6 +28,15 @@ WebGL browser works (Chrome, Edge, Firefox). A WebXR headset is optional.
 | ![Trainee progress](docs/screenshots/trainee-progress.jpg) | ![Threat library](docs/screenshots/threat-library.jpg) |
 
 A 5-minute demo script for judges is in [docs/DEMO.md](docs/DEMO.md).
+
+## Deploy for free
+
+* **GitHub Pages** (public HTTPS link, no server, VR-capable): merge to `main`, then set **Settings → Pages → Source:
+  GitHub Actions**. The included workflow tests and publishes `public/`. Then click **Load demo unit** on the site.
+* **Render** (full shared server, free tier): **New → Blueprint** with this repository (`render.yaml`).
+* **Unit laptop on the LAN:** `npm start`.
+
+Step-by-step instructions are in [docs/DEPLOY.md](docs/DEPLOY.md).
 
 ## How it meets the problem statement
 

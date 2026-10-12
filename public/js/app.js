@@ -53,6 +53,33 @@ const app = {
 
   pickTrainee: () => pickTrainee(),
 
+  // Populate an empty deployment with a simulated demo unit (runs the real
+  // engine in the browser, so it works on static hosting such as GitHub Pages).
+  async loadDemo() {
+    const { seedDemo, DEMO_TRAINEES } = await import('./ai/demo.js');
+    const local = this.store.mode === 'local';
+    const defs = local ? DEMO_TRAINEES.filter((_, i) => [0, 1, 2, 4, 5, 6].includes(i)) : DEMO_TRAINEES;
+    const bar = h('i', { style: { width: '0%' } });
+    const label = h('p', { class: 'secondary' }, 'Simulating sorties…');
+    const close = openModal(h('div', {},
+      h('h2', {}, 'Loading demo unit'),
+      h('p', { class: 'secondary' }, 'Simulated trainees with different skill levels fly sorties through the real engine, scoring and AI coach. This takes a few seconds.'),
+      h('div', { class: 'meter' }, bar), label), { dismissable: false });
+    try {
+      const res = await seedDemo(this.store, {
+        trainees: defs, perTrainee: local ? 4 : 6, lean: local, yieldToUi: true,
+        onProgress: (d, t) => { bar.style.width = `${Math.round((d / t) * 100)}%`; label.textContent = `Simulated ${d} of ${t} sorties`; },
+      });
+      close();
+      await this.setTrainee(res.trainees[0]);
+      toast(`Demo unit loaded: ${res.sessions} sorties for ${res.trainees.length} trainees`);
+      this.go('/unit');
+    } catch (err) {
+      close();
+      toast(`Demo load failed: ${err.message}`, 'bad');
+    }
+  },
+
   startRun(spec, mode = 'sortie', options = {}) {
     this.pending = { spec, mode, options };
     this.go('/run');

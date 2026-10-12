@@ -10,8 +10,10 @@ export async function render(main, app, unitId) {
   const units = await app.store.units();
   if (!units.length) {
     mount(main, h('div', { class: 'page' }, h('div', { class: 'card' }, h('h2', {}, 'No units yet'),
-      h('p', { class: 'secondary' }, 'Create a unit when you add a trainee, or run "npm run seed-demo" on the server to load a demonstration detachment.'),
-      h('button', { class: 'btn primary', type: 'button', onclick: () => app.pickTrainee().then(() => app.go('/unit')) }, 'Add trainee & unit'))));
+      h('p', { class: 'secondary' }, 'Create a unit when you add a trainee, or load a simulated demonstration detachment.'),
+      h('div', { class: 'row' },
+        h('button', { class: 'btn primary', type: 'button', onclick: () => app.pickTrainee().then(() => app.go('/unit')) }, 'Add trainee & unit'),
+        h('button', { class: 'btn', type: 'button', onclick: () => app.loadDemo() }, 'Load demo unit')))));
     return null;
   }
   const unit = units.find((u) => u.id === unitId) || units.find((u) => u.id === app.trainee?.unitId) || units[0];
